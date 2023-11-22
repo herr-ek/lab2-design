@@ -55,7 +55,11 @@ public class DrawPanel extends JPanel{
 
             // Rememember to rightclick src New -> Package -> name: graphics.pics -> MOVE *.jpg to graphics.pics.
             // if you are starting in IntelliJ.
-            volvoImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Volvo240.jpg"));
+            for (Vehicle vehicle : vehicles)  {
+                System.out.println("pics/"+vehicle.getModelName()+".jpg");
+                images.put(vehicle, ImageIO.read(DrawPanel.class.getResourceAsStream("pics/"+vehicle.getModelName()+".jpg")));
+            }
+            //volvoImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Volvo240.jpg"));
         } catch (IOException ex)
         {
             ex.printStackTrace();

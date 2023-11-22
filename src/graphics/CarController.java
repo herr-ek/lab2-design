@@ -37,6 +37,9 @@ public class CarController {
         CarController cc = new CarController();
 
         cc.cars.add(new Volvo240());
+        cc.cars.add(new Saab95());
+        cc.cars.add(new Scania());
+
 
         // Start a new view and send a reference of self
         cc.frame = new CarView("CarSim 1.0", cc);
@@ -77,7 +80,33 @@ public class CarController {
         }
     }
 
-    void testCarInRange(Car car) {
+    void stop() {
+        for (Vehicle car : cars) {
+            car.stopEngine();
+        }
+    }
+
+    void start() {
+        for (Vehicle car : cars) {
+            car.startEngine();
+        }
+    }
+    
+    void turboOn() {
+        for (Vehicle vehicle : cars) {
+            if (vehicle.getModelName() == "Saab95")
+                ((Saab95)vehicle).setTurboOn();
+        }
+    }
+
+    void turboOff() {
+        for (Vehicle vehicle : cars) {
+            if (vehicle.getModelName() == "Saab95")
+                ((Saab95)vehicle).setTurboOff();
+        }
+    }
+
+    void testCarInRange(Vehicle car) {
         if (car.getDirection() == 180 && car.getPosition().getX() <= 0) {
             car.turnRight();
             car.turnRight();
