@@ -1,6 +1,7 @@
 package graphics;
 
 import lab1.*;
+import lab2.*;
 
 
 import javax.swing.*;
@@ -62,9 +63,28 @@ public class CarController {
     // Calls the gas method for each car once
     void gas(int amount) {
         double gas = ((double) amount) / 100;
-        for (Car car : cars
-                ) {
+        for (Car car : cars) {
             car.gas(gas);
+        }
+    }
+
+    void brake(int amount) {
+        double brake = ((double) amount) / 100;
+        for (Car car : cars) {
+            car.brake(brake);
+        }
+    }
+
+    void testCarInRange(Car car) {
+        if (car.getDirection() == 180 && car.getPosition().getX() <= 0) {
+            car.turnRight();
+            car.turnRight();
+            car.stopEngine();
+        }
+        else if (car.getDirection() == 0 && car.getPosition().getX() >= 700) {
+            car.turnRight();
+            car.turnRight();
+            car.stopEngine();
         }
     }
 }
