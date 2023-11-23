@@ -19,6 +19,17 @@ public class TruckBedTruck extends Vehicle {
         if (truckbed.isTruckBedSecured())
             super.move();
     }
+    @Override
+    public void gas(double amount){
+        if (truckbed.isTruckBedSecured())
+            super.gas(amount);
+    }
+
+    @Override
+    public void startEngine() {
+        if (truckbed.isTruckBedSecured())
+            super.startEngine();
+    }
 
     public void modifyCurrentWeight(int currentWeight){
         truckbed.modifyCurrentWeight(currentWeight);

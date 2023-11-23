@@ -106,6 +106,19 @@ public class CarController {
         }
     }
 
+    void liftBed(int amount) {
+        for (Vehicle vehicle : cars) {
+            if (vehicle.getModelName() == "Scania")
+                ((Scania)vehicle).raiseTruckBed(amount);
+        }
+    }
+    void lowerBed(int amount) {
+        for (Vehicle vehicle : cars) {
+            if (vehicle.getModelName() == "Scania")
+                ((Scania)vehicle).lowerTruckBed(amount);
+        }
+    }
+
     void testCarInRange(Vehicle car) {
         if (car.getDirection() == 180 && car.getPosition().getX() <= 0) {
             car.turnRight();
