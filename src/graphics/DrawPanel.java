@@ -17,9 +17,6 @@ public class DrawPanel extends JPanel{
 
     // Just a single image, TODO: Generalize
     HashMap<Vehicle, BufferedImage> images = new HashMap<>();
-    //BufferedImage volvoImage;
-    // To keep track of a single cars position
-    //Point volvoPoint = new Point();
     HashMap<Vehicle, Point> points;
 
 
@@ -49,16 +46,11 @@ public class DrawPanel extends JPanel{
 
         // Print an error message in case file is not found with a try/catch block
         try {
-            // You can remove the "graphics.pics" part if running outside of IntelliJ and
-            // everything is in the same main folder.
-            // volvoImage = ImageIO.read(new File("Volvo240.jpg"));
 
-            // Rememember to rightclick src New -> Package -> name: graphics.pics -> MOVE *.jpg to graphics.pics.
-            // if you are starting in IntelliJ.
             for (Vehicle vehicle : vehicles)  {
                 images.put(vehicle, ImageIO.read(DrawPanel.class.getResourceAsStream("pics/"+vehicle.getModelName()+".jpg")));
             }
-            //volvoImage = ImageIO.read(DrawPanel.class.getResourceAsStream("pics/Volvo240.jpg"));
+
         } catch (IOException ex)
         {
             ex.printStackTrace();
