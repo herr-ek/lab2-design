@@ -84,45 +84,45 @@ public class CarView extends JFrame{
             }
         });
 
-        brakeButton.addActionListener(new ActionListener() {
+        buttC.brakeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 adapter.brake(gasAmount);
             }
         });
 
-        stopButton.addActionListener(new ActionListener() {
+        buttC.stopButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 adapter.stop();
             }
         });
-        startButton.addActionListener(new ActionListener() {
+        buttC.startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 adapter.start();
             }
         });
 
-        turboOnButton.addActionListener(new ActionListener() {
+        buttC.turboOnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 adapter.turboOn();
             }
         });
-        turboOffButton.addActionListener(new ActionListener() {
+        buttC.turboOffButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 adapter.turboOff();
             }
         });
-        liftBedButton.addActionListener(new ActionListener() {
+        buttC.liftBedButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 adapter.liftBed();
             }
         });
-        lowerBedButton.addActionListener(new ActionListener() {
+        buttC.lowerBedButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 adapter.lowerBed();
