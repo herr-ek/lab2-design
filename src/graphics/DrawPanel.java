@@ -1,6 +1,6 @@
 package graphics;
 
-import lab1.Vehicle;
+import lab1.Movable;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -16,39 +16,37 @@ import javax.swing.*;
 public class DrawPanel extends JPanel{
 
     // Just a single image, TODO: Generalize
-    HashMap<Vehicle, BufferedImage> images = new HashMap<>();
-    HashMap<Vehicle, Point> points;
-
+    HashMap<Movable, BufferedImage> images = new HashMap<>();
+    HashMap<Movable, Point> points;
 
     // TODO: Make this general for all cars
-    void moveit(int x, int y, Vehicle v){
+    void moveit(int x, int y, Movable v){
         Point newPoint = new Point(x,y);
         points.replace(v, newPoint);
     }
 
-    HashMap<Vehicle, Point> createPoints(Collection<Vehicle> v){
-        HashMap<Vehicle, Point> hash = new HashMap<>();
+    HashMap<Movable, Point> createPoints(Collection<Movable> v){
+        HashMap<Movable, Point> hash = new HashMap<>();
         int y = 0;
-        for (Vehicle vehicle : v){
-            hash.put(vehicle, new Point(0, y));
-            vehicle.getPosition().setY(y);
+        for (Movable Movable : v){
+            hash.put(Movable, new Point(0, y));
+            Movable.getPosition().setY(y);
             y += 100;
         }
         return hash;
     }
 
     // Initializes the panel and reads the images
-    public DrawPanel(int x, int y, Collection<Vehicle> vehicles) {
-        this.setDoubleBuffered(true);
-        this.setPreferredSize(new Dimension(x, y));
-        this.setBackground(Color.green);
-        this.points = createPoints(vehicles);
+    public DrawPanel(int x, int y, Collection<Movable> movables) {
+        createAndColorBackground(x, y);
+        this.points = createPoints(movables);
 
         // Print an error message in case file is not found with a try/catch block
         try {
 
-            for (Vehicle vehicle : vehicles)  {
-                images.put(vehicle, ImageIO.read(DrawPanel.class.getResourceAsStream("pics/"+vehicle.getModelName()+".jpg")));
+            for (Movable movable : movables)  {
+                System.out.println(movable.getClass().getSimpleName());
+                images.put(movable, ImageIO.read(DrawPanel.class.getResourceAsStream("pics/"+movable.getClass().getSimpleName()+".jpg")));
             }
 
         } catch (IOException ex)
@@ -58,14 +56,20 @@ public class DrawPanel extends JPanel{
 
     }
 
+    private void createAndColorBackground(int x, int y) {
+        this.setDoubleBuffered(true);
+        this.setPreferredSize(new Dimension(x, y));
+        this.setBackground(Color.green);
+    }
+
 
     // This method is called each time the panel updates/refreshes/repaints itself
     // TODO: Change to suit your needs.
     
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        for (Vehicle vehicle : images.keySet()) {
-            g.drawImage(images.get(vehicle), points.get(vehicle).x, points.get(vehicle).y, null); // see javadoc for more info on the parameters
+        for (Movable Movable : images.keySet()) {
+            g.drawImage(images.get(Movable), points.get(Movable).x, points.get(Movable).y, null); // see javadoc for more info on the parameters
         }
     }
 }

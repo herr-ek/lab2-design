@@ -6,6 +6,7 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
  * This class represents the full view of the MVC pattern of your car simulator.
@@ -21,7 +22,7 @@ public class CarView extends JFrame{
 
 
     // The controller member
-    CarController carC;
+    CarModelAdapter adapter;
 
     ButtonController buttC;
     DrawPanel drawPanel;
@@ -33,9 +34,9 @@ public class CarView extends JFrame{
     JLabel gasLabel = new JLabel("Amount of gas");
 
     // Constructor
-    public CarView(String framename, CarController cc){
-        this.carC = cc;
-        this.drawPanel = new DrawPanel(X, Y-240, cc.cars);
+    public CarView(String framename, CarModelAdapter adapter){
+        this.adapter = adapter;
+        this.drawPanel = new DrawPanel(X, Y-240, new ArrayList<>(adapter.cars));
         initComponents(framename);
     }
 
@@ -79,52 +80,52 @@ public class CarView extends JFrame{
         buttC.gasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.gas(gasAmount);
+                adapter.gas(gasAmount);
             }
         });
 
         brakeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.brake(gasAmount);
+                adapter.brake(gasAmount);
             }
         });
 
         stopButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.stop();
+                adapter.stop();
             }
         });
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.start();
+                adapter.start();
             }
         });
 
         turboOnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.turboOn();
+                adapter.turboOn();
             }
         });
         turboOffButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.turboOff();
+                adapter.turboOff();
             }
         });
         liftBedButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.liftBed(10);
+                adapter.liftBed();
             }
         });
         lowerBedButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                carC.lowerBed(10);
+                adapter.lowerBed();
             }
         });
 
