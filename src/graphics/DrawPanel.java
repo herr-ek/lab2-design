@@ -45,7 +45,7 @@ public class DrawPanel extends JPanel{
         try {
 
             for (Movable Movable : Movables)  {
-                System.out.println(this.getClass().getSimpleName());
+//                System.out.println(this.getClass().getSimpleName());
                 images.put(Movable, ImageIO.read(DrawPanel.class.getResourceAsStream("pics/"+this.getClass().getSimpleName()+".jpg")));
             }
 
