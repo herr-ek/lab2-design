@@ -1,5 +1,7 @@
 package lab2;
 
+import lab1.Vehicle;
+
 import java.util.LinkedList;
 
 public class LoadCarrier<T> {

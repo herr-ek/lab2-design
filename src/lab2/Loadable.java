@@ -7,5 +7,7 @@ public interface Loadable {
 
     Position getPosition();
 
+    String getModelName();
+
     void setDirection(int newDirection);
 }

@@ -1,8 +1,9 @@
 package lab2;
 
-import lab1.Vehicle;
+import lab1.Car;
 
-public class AutomotiveWorkshop<T extends Vehicle>{
+
+public class AutomotiveWorkshop<T extends Car>{
     private final LoadCarrier<T> loadCarrier;
 
     public AutomotiveWorkshop(int maxUnits) {

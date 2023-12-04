@@ -109,13 +109,13 @@ public class CarController {
     void liftBed(int amount) {
         for (Vehicle vehicle : cars) {
             if (vehicle.getModelName() == "Scania")
-                ((Scania)vehicle).raiseTruckBed(amount);
+                ((Scania)vehicle).raiseTruckBed();
         }
     }
     void lowerBed(int amount) {
         for (Vehicle vehicle : cars) {
             if (vehicle.getModelName() == "Scania")
-                ((Scania)vehicle).lowerTruckBed(amount);
+                ((Scania)vehicle).lowerTruckBed();
         }
     }
 
