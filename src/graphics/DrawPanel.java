@@ -37,14 +37,14 @@ public class DrawPanel extends JPanel{
     }
 
     // Initializes the panel and reads the images
-    public DrawPanel(int x, int y, Collection<Movable> Movables) {
+    public DrawPanel(int x, int y, Collection<Movable> movables) {
         createAndColorBackground(x, y);
-        this.points = createPoints(Movables);
+        this.points = createPoints(movables);
 
         // Print an error message in case file is not found with a try/catch block
         try {
 
-            for (Movable Movable : Movables)  {
+            for (Movable Movable : movables)  {
 //                System.out.println(this.getClass().getSimpleName());
                 images.put(Movable, ImageIO.read(DrawPanel.class.getResourceAsStream("pics/"+this.getClass().getSimpleName()+".jpg")));
             }
