@@ -71,6 +71,8 @@ public class CarView extends JFrame{
 
         this.add(gasPanel);
 
+        this.add(buttC.controlPanel);
+
         this.add(buttC.startButton);
 
         this.add(buttC.stopButton);
