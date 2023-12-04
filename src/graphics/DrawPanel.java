@@ -44,9 +44,9 @@ public class DrawPanel extends JPanel{
         // Print an error message in case file is not found with a try/catch block
         try {
 
-            for (Movable Movable : movables)  {
-//                System.out.println(this.getClass().getSimpleName());
-                images.put(Movable, ImageIO.read(DrawPanel.class.getResourceAsStream("pics/"+this.getClass().getSimpleName()+".jpg")));
+            for (Movable movable : movables)  {
+                System.out.println(movable.getClass().getSimpleName());
+                images.put(movable, ImageIO.read(DrawPanel.class.getResourceAsStream("pics/"+movable.getClass().getSimpleName()+".jpg")));
             }
 
         } catch (IOException ex)
