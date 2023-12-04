@@ -30,19 +30,16 @@ public class CarApp {
     // A list of cars, modify if needed
     LinkedList<Vehicle> cars = new LinkedList<>();
 
+    CarModelAdapter adapter = new CarModelAdapter();
+
     //methods:
 
     public static void main(String[] args) {
         // Instance of this class
         CarApp cc = new CarApp();
 
-        cc.cars.add(new Volvo240());
-        cc.cars.add(new Saab95());
-        cc.cars.add(new Scania());
-
-
         // Start a new view and send a reference of self
-        cc.frame = new CarView("CarSim 1.0", cc);
+        cc.frame = new CarView("CarSim 1.0", cc.adapter);
 
         // Start the timer
         cc.timer.start();
@@ -54,7 +51,7 @@ public class CarApp {
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             for (Vehicle car : cars) {
-                testCarInRange(car);
+                adapter.testCarInRange(car);
                 car.move();
                 int x = (int) Math.round(car.getPosition().getX());
                 int y = (int) Math.round(car.getPosition().getY());
@@ -65,70 +62,5 @@ public class CarApp {
         }
     }
 
-    // Calls the gas method for each car once
-    void gas(int amount) {
-        double gas = ((double) amount) / 100;
-        for (Vehicle car : cars) {
-            car.gas(gas);
-        }
-    }
 
-    void brake(int amount) {
-        double brake = ((double) amount) / 50;
-        for (Vehicle car : cars) {
-            car.brake(brake);
-        }
-    }
-
-    void stop() {
-        for (Vehicle car : cars) {
-            car.stopEngine();
-        }
-    }
-
-    void start() {
-        for (Vehicle car : cars) {
-            car.startEngine();
-        }
-    }
-    
-    void turboOn() {
-        for (Vehicle vehicle : cars) {
-            if (Objects.equals(vehicle.getModelName(), "Saab95"))
-                ((Saab95)vehicle).setTurboOn();
-        }
-    }
-
-    void turboOff() {
-        for (Vehicle vehicle : cars) {
-            if (Objects.equals(vehicle.getModelName(), "Saab95"))
-                ((Saab95)vehicle).setTurboOff();
-        }
-    }
-
-    void liftBed() {
-        for (Vehicle vehicle : cars) {
-            if (Objects.equals(vehicle.getModelName(), "Scania"))
-                ((Scania)vehicle).raiseTruckBed();
-        }
-    }
-    void lowerBed() {
-        for (Vehicle vehicle : cars) {
-            if (Objects.equals(vehicle.getModelName(), "Scania"))
-                ((Scania)vehicle).lowerTruckBed();
-        }
-    }
-
-    void testCarInRange(Vehicle car) {
-        if (car.getDirection() == 180 && car.getPosition().getX() <= 0) {
-            car.turnRight();
-            car.turnRight();
-            car.stopEngine();
-        }
-        else if (car.getDirection() == 0 && car.getPosition().getX() >= 700) {
-            car.turnRight();
-            car.turnRight();
-            car.stopEngine();
-        }
-    }
 }
