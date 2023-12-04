@@ -9,8 +9,7 @@ public class ButtonController {
 
     private static final int X = 800;
 
-    public ButtonController(JButton button) {
-        this.button = button;
+    public ButtonController() {
         setControlPanel();
     }
 

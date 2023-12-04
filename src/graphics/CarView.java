@@ -24,7 +24,7 @@ public class CarView extends JFrame{
     // The controller member
     CarModelAdapter adapter;
 
-    ButtonController buttC;
+    ButtonController buttC = new ButtonController();
     DrawPanel drawPanel;
 
 
