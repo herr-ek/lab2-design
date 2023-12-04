@@ -7,7 +7,6 @@ import lab2.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Objects;
 
@@ -17,14 +16,14 @@ import java.util.Objects;
 * modifying the model state and the updating the view.
  */
 
-public class CarController {
+public class CarApp {
     // member fields:
 
     // The delay (ms) corresponds to 20 updates a sec (hz)
     private final int delay = 16;
-    // The timer is started with an listener (see below) that executes the statements
+    // The timer is started with a listener (see below) that executes the statements
     // each step between delays.
-    private Timer timer = new Timer(delay, new TimerListener());
+    private final Timer timer = new Timer(delay, new TimerListener());
 
     // The frame that represents this instance View of the MVC pattern
     CarView frame;
@@ -35,7 +34,7 @@ public class CarController {
 
     public static void main(String[] args) {
         // Instance of this class
-        CarController cc = new CarController();
+        CarApp cc = new CarApp();
 
         cc.cars.add(new Volvo240());
         cc.cars.add(new Saab95());
@@ -95,28 +94,28 @@ public class CarController {
     
     void turboOn() {
         for (Vehicle vehicle : cars) {
-            if (vehicle.getModelName() == "Saab95")
+            if (Objects.equals(vehicle.getModelName(), "Saab95"))
                 ((Saab95)vehicle).setTurboOn();
         }
     }
 
     void turboOff() {
         for (Vehicle vehicle : cars) {
-            if (vehicle.getModelName() == "Saab95")
+            if (Objects.equals(vehicle.getModelName(), "Saab95"))
                 ((Saab95)vehicle).setTurboOff();
         }
     }
 
-    void liftBed(int amount) {
+    void liftBed() {
         for (Vehicle vehicle : cars) {
             if (Objects.equals(vehicle.getModelName(), "Scania"))
-                ((Scania)vehicle).raiseTruckBed(amount);
+                ((Scania)vehicle).raiseTruckBed();
         }
     }
-    void lowerBed(int amount) {
+    void lowerBed() {
         for (Vehicle vehicle : cars) {
             if (Objects.equals(vehicle.getModelName(), "Scania"))
-                ((Scania)vehicle).lowerTruckBed(amount);
+                ((Scania)vehicle).lowerTruckBed();
         }
     }
 
