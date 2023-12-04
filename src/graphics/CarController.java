@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Objects;
 
 /*
 * This class represents the Controller part in the MVC pattern.
@@ -108,13 +109,13 @@ public class CarController {
 
     void liftBed(int amount) {
         for (Vehicle vehicle : cars) {
-            if (vehicle.getModelName() == "Scania")
+            if (Objects.equals(vehicle.getModelName(), "Scania"))
                 ((Scania)vehicle).raiseTruckBed(amount);
         }
     }
     void lowerBed(int amount) {
         for (Vehicle vehicle : cars) {
-            if (vehicle.getModelName() == "Scania")
+            if (Objects.equals(vehicle.getModelName(), "Scania"))
                 ((Scania)vehicle).lowerTruckBed(amount);
         }
     }
