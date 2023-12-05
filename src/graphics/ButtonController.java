@@ -1,7 +1,12 @@
 package graphics;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class ButtonController {
     JButton button;
@@ -44,7 +49,6 @@ public class ButtonController {
         stopButton.setForeground(Color.black);
         stopButton.setPreferredSize(new Dimension(X/5-15,200));
     }
-
 
 }
 
