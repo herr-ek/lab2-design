@@ -76,12 +76,7 @@ public class CarView extends JFrame{
         this.add(buttC.startButton);
 
         this.add(buttC.stopButton);
-        this.add(buttC.gasButton);
-        this.add(buttC.brakeButton);
-        this.add(buttC.turboOnButton);
-        this.add(buttC.turboOffButton);
-        this.add(buttC.liftBedButton);
-        this.add(buttC.lowerBedButton);
+
 
         // This actionListener is for the gas button only
         // TODO: Create more for each component as necessary
