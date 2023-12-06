@@ -21,33 +21,11 @@ public class CarModelAdapter {
     IVehicleFactory factory;
 
     public CarModelAdapter() {
-        addNewVolvo240();
-//        VolvoFactory.getInstance().createVehicle();
-        addNewSaab95();
-        addNewScania();
-    }
-
-    private void addNewScania() {
-        factory = new ScaniaFactory();
-        cars.add(factory.createVehicle());
-    }
-
-    /*
-    * TODO
-    * Implementera ett Singleton pattern för Factories, så att det bara finns en factory av varje typ. Vart skall dessa finnas??
-    * Då kan vi skapa RandomVehicleFactory som tar in en lista på Factories och väljer mellan dem.
-    *
-    * */
-
-    private void addNewSaab95() {
-        factory = new SaabFactory();
-        cars.add(factory.createVehicle());
-    }
-
-    private void addNewVolvo240() {
         addNewVehicle(new VolvoFactory());
-
+        addNewVehicle(new SaabFactory());
+        addNewVehicle(new ScaniaFactory());
     }
+
     private void addNewVehicle(IVehicleFactory factory){
         cars.add(factory.createVehicle());
     }
@@ -60,18 +38,18 @@ public class CarModelAdapter {
 
     // This method is very not Open for extensibility, since adding more Vehicles and wanting them to be able to be randomly generated
     // would need changes in this randomizing function.
-    // However, I do not know how to implement this in any other way, since getting a list of all Subclasses to Vehicle seems bad.
+    // A better way to implement this would be to create another
     private void chooseCarToGenerate(int randomNumber) {
        cars.add(factory.createVehicle());
          switch (randomNumber) {
             case 1:
-                addNewVolvo240();
+                addNewVehicle(new VolvoFactory());
                 break;
             case 2:
-                addNewSaab95();
+                addNewVehicle(new SaabFactory());
                 break;
             case 3:
-                addNewScania();
+                addNewVehicle(new ScaniaFactory());
                 break;
         }
     }
