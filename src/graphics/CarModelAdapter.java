@@ -3,6 +3,10 @@ package graphics;
 import lab1.Saab95;
 import lab1.Vehicle;
 import lab1.Volvo240;
+import lab2.Factories.SaabFactory;
+import lab2.Factories.ScaniaFactory;
+import lab2.Factories.VehicleFactory;
+import lab2.Factories.VolvoFactory;
 import lab2.Scania;
 
 import java.util.LinkedList;
@@ -14,6 +18,8 @@ public class CarModelAdapter {
 
     LinkedList<Vehicle> cars = new LinkedList<>();
 
+    VehicleFactory factory;
+
     public CarModelAdapter() {
         addNewVolvo240();
         addNewSaab95();
@@ -21,25 +27,30 @@ public class CarModelAdapter {
     }
 
     private void addNewScania() {
-        cars.add(new Scania());
+        factory = new ScaniaFactory();
+        cars.add(factory.createVehicle());
     }
 
     private void addNewSaab95() {
-        cars.add(new Saab95());
+        factory = new SaabFactory();
+        cars.add(factory.createVehicle());
     }
 
     private void addNewVolvo240() {
-        cars.add(new Volvo240());
+        factory = new VolvoFactory();
+        cars.add(factory.createVehicle());
+    }
+
+    private void createRandomVehicle() {
+        Random randomGenerator = new Random();
+        int randomNumber = randomGenerator.nextInt((3 - 1) + 1) + 1;
+        chooseCarToGenerate(randomNumber);
     }
 
     // This method is very not Open for extensibility, since adding more Vehicles and wanting them to be able to be randomly generated
     // would need changes in this randomizing function.
     // However, I do not know how to implement this in any other way, since getting a list of all Subclasses to Vehicle seems bad.
-    private void createRandomVehicle() {
-        Random randomGenerator = new Random();
-
-        int randomNumber = randomGenerator.nextInt((3 - 1) + 1) + 1;
-
+    private void chooseCarToGenerate(int randomNumber) {
         switch (randomNumber) {
             case 1:
                 addNewVolvo240();
@@ -50,7 +61,6 @@ public class CarModelAdapter {
             case 3:
                 addNewScania();
                 break;
-
         }
     }
 
