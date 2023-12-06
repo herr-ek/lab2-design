@@ -21,7 +21,7 @@ public class CarModelFacade {
 
     IVehicleFactory factory;
 
-    public CarModelAdapter() {
+    public CarModelFacade() {
         addNewVolvo240();
 //        VolvoFactory.getInstance().createVehicle();
         addNewSaab95();
@@ -47,12 +47,8 @@ public class CarModelFacade {
 
     private void addNewVolvo240() {
         addNewVehicle(new VolvoFactory());
-
-    public CarModelFacade() {
-        addNewVolvo240();
-        addNewSaab95();
-        addNewScania();
     }
+
     private void addNewVehicle(IVehicleFactory factory){
         cars.add(factory.createVehicle());
     }

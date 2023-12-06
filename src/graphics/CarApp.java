@@ -46,12 +46,6 @@ public class CarApp {
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             adapter.tick();
-            for (Vehicle v : adapter.cars) {
-                adapter.testCarInRange(v);
-                v.move();
-                // model.moveAllCars(); {alertAllObservers(PositionChange);}
-                // repaint() calls the paintComponent method of the panel
-            }
         }
     }
 

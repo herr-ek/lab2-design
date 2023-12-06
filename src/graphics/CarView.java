@@ -36,6 +36,7 @@ public class CarView extends JFrame implements VehicleObserver {
     public CarView(String framename, CarModelFacade adapter){
         this.facade = adapter;
         this.drawPanel = new DrawPanel(X, Y-240);
+        facade.addObserver(this);
         initComponents(framename);
     }
 
