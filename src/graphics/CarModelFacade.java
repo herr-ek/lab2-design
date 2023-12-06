@@ -46,9 +46,11 @@ public class CarModelFacade {
     }
 
     private void addNewVolvo240() {
+    public CarModelAdapter() {
         addNewVehicle(new VolvoFactory());
+        addNewVehicle(new SaabFactory());
+        addNewVehicle(new ScaniaFactory());
     }
-
     private void addNewVehicle(IVehicleFactory factory){
         cars.add(factory.createVehicle());
     }
@@ -61,18 +63,19 @@ public class CarModelFacade {
 
     // This method is very not Open for extensibility, since adding more Vehicles and wanting them to be able to be randomly generated
     // would need changes in this randomizing function.
-    // However, I do not know how to implement this in any other way, since getting a list of all Subclasses to Vehicle seems bad.
+    // A better way to implement this would be to create another factory that takes a parameter of a list of factories and chooses between them.
+    // I deduced that I did not have time for this implementation this time...
     private void chooseCarToGenerate(int randomNumber) {
        cars.add(factory.createVehicle());
          switch (randomNumber) {
             case 1:
-                addNewVolvo240();
+                addNewVehicle(new VolvoFactory());
                 break;
             case 2:
-                addNewSaab95();
+                addNewVehicle(new SaabFactory());
                 break;
             case 3:
-                addNewScania();
+                addNewVehicle(new ScaniaFactory());
                 break;
         }
     }
