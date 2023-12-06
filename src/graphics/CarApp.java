@@ -48,8 +48,10 @@ public class CarApp {
             for (Vehicle v : adapter.cars) {
                 adapter.testCarInRange(v);
                 v.move();
+                // model.moveAllCars(); {alertAllObservers(PositionChange);}
                 int x = (int) Math.round(v.getPosition().getX());
                 int y = (int) Math.round(v.getPosition().getY());
+                // view.updateView();
                 frame.drawPanel.moveit(x, y, v);
                 // repaint() calls the paintComponent method of the panel
                 frame.drawPanel.repaint();
