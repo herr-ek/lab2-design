@@ -14,10 +14,45 @@ public class CarModelAdapter {
     LinkedList<Vehicle> cars = new LinkedList<>();
 
     public CarModelAdapter() {
-        cars.add(new Volvo240());
-        cars.add(new Saab95());
+        addNewVolvo240();
+        addNewSaab95();
+        addNewScania();
+    }
+
+    private void addNewScania() {
         cars.add(new Scania());
     }
+
+    private void addNewSaab95() {
+        cars.add(new Saab95());
+    }
+
+    private void addNewVolvo240() {
+        cars.add(new Volvo240());
+    }
+
+    // This method is very not Open for extensibility, since adding more Vehicles and wanting them to be able to be randomly generated
+    // would need changes in this randomizing function.
+    // However, I do not know how to implement this in any other way, since getting a list of all Subclasses to Vehicle seems bad.
+    private void createRandomVehicle() {
+        Random randomGenerator = new Random();
+
+        int randomNumber = randomGenerator.nextInt((3 - 1) + 1) + 1;
+
+        switch (randomNumber) {
+            case 1:
+                addNewVolvo240();
+                break;
+            case 2:
+                addNewSaab95();
+                break;
+            case 3:
+                addNewScania();
+                break;
+
+        }
+    }
+
 
     void gas(int amount) {
         double gas = ((double) amount) / 100;
