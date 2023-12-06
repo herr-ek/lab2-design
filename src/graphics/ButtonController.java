@@ -49,7 +49,6 @@ public class ButtonController {
         stopButton.setForeground(Color.black);
         stopButton.setPreferredSize(new Dimension(X/5-15,200));
     }
-
 }
 
 

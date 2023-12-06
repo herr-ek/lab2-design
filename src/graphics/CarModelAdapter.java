@@ -84,8 +84,4 @@ public class CarModelAdapter {
             car.stopEngine();
         }
     }
-
-    void updateMoveCars(){
-
-    }
 }
