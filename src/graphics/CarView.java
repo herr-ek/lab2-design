@@ -3,11 +3,7 @@ package graphics;
 import lab1.Vehicle;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * This class represents the full view of the MVC pattern of your car simulator.
@@ -25,7 +21,7 @@ public class CarView extends JFrame implements VehicleObserver {
     // The controller member
     CarModelFacade facade;
 
-    ButtonController buttC = new ButtonController();
+    //CarController buttC = new CarController();
     DrawPanel drawPanel;
     JPanel gasPanel = new JPanel();
     JSpinner gasSpinner = new JSpinner();
@@ -49,11 +45,14 @@ public class CarView extends JFrame implements VehicleObserver {
                     int y = (int) Math.round(v.getPosition().getY());
                     drawPanel.moveit(x,y,v);
                 }
-                break;
-            } case CARADDED -> {
-                drawPanel.addMovableToPanel(facade.cars.getLast());
-            } case CARREMOVED -> {
-                drawPanel.removeMovableFromPanel(facade.cars.getLast());
+            }
+            case CARADDED -> drawPanel.addMovableToPanel(facade.cars.getLast());
+            case CARREMOVED -> drawPanel.removeMovableFromPanel(facade.cars.getLast());
+            case SPEEDCHANGE -> {
+                System.out.println("The new speeds are:");
+                for (Vehicle v : facade.cars) {
+                    System.out.println(v.getCurrentSpeed());
+                }
             }
         }
         drawPanel.repaint();
@@ -68,9 +67,7 @@ public class CarView extends JFrame implements VehicleObserver {
         this.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 
         this.add(drawPanel);
-
-
-
+/*
         SpinnerModel spinnerModel =
                 new SpinnerNumberModel(0, //initial value
                         0, //min
@@ -149,11 +146,13 @@ public class CarView extends JFrame implements VehicleObserver {
                 facade.lowerBed();
             }
         });
+*/
+    }
 
-        // Make the frame pack all it's components by respecting the sizes if possible.
+    void packView() {
         this.pack();
-
-        // Get the computer screen resolution
+    }        // Make the frame pack all it's components by respecting the sizes if possible.
+    void renderOnScreen() {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         // Center the frame
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
@@ -161,5 +160,8 @@ public class CarView extends JFrame implements VehicleObserver {
         this.setVisible(true);
         // Make sure the frame exits when "x" is pressed
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
+    }        // Get the computer screen resolution
+
+
+
 }

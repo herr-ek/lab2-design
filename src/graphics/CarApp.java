@@ -36,6 +36,8 @@ public class CarApp {
 
         // Start a new view and send a reference of self
         carApp.frame = new CarView("CarSim 1.0", carApp.adapter);
+        carApp.adapter.fillWithCars();
+        carApp.controller = new CarController(carApp.frame, carApp.adapter);
 
         // Start the timer
         carApp.timer.start();

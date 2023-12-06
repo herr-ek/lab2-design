@@ -7,7 +7,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ButtonController {
+public class CarController {
+
+    CarView view;
+
+    CarModelFacade model;
+
     JPanel controlPanel = new JPanel();
 
     private static final int X = 800;
@@ -17,7 +22,10 @@ public class ButtonController {
     int gasAmount = 0;
     JLabel gasLabel = new JLabel("Amount of gas");
 
-    public ButtonController() {
+    public CarController(CarView view, CarModelFacade model) {
+        this.view = view;
+        this.model = model;
+
         setControlPanel();
         initControllerComponents();
         view.packView();

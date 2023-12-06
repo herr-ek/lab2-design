@@ -19,9 +19,7 @@ public class CarModelFacade {
     LinkedList<Vehicle> cars = new LinkedList<>();
     LinkedList<VehicleObserver> observers = new LinkedList<>();
 
-    IVehicleFactory factory;
-
-    public CarModelFacade() {
+    public void fillWithCars() {
         addNewVehicle(new VolvoFactory());
         addNewVehicle(new SaabFactory());
         addNewVehicle(new ScaniaFactory());
@@ -34,6 +32,7 @@ public class CarModelFacade {
 
     void addNewVehicle(IVehicleFactory factory){
         cars.add(factory.createVehicle());
+        notifyAllObservers(UpdateEvent.CARADDED);
     }
 
     void createRandomVehicle() {
@@ -86,6 +85,7 @@ public class CarModelFacade {
         for (Vehicle car : cars) {
             car.gas(gas);
         }
+        notifyAllObservers(UpdateEvent.SPEEDCHANGE);
     }
 
     void brake(int amount) {
@@ -93,18 +93,21 @@ public class CarModelFacade {
         for (Vehicle car : cars) {
             car.brake(brake);
         }
+        notifyAllObservers(UpdateEvent.SPEEDCHANGE);
     }
 
     void stop() {
         for (Vehicle car : cars) {
             car.stopEngine();
         }
+        notifyAllObservers(UpdateEvent.SPEEDCHANGE);
     }
 
     void start() {
         for (Vehicle car : cars) {
             car.startEngine();
         }
+        notifyAllObservers(UpdateEvent.SPEEDCHANGE);
     }
 
     void turboOn() {
