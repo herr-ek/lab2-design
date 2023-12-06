@@ -22,32 +22,11 @@ public class CarModelFacade {
     IVehicleFactory factory;
 
     public CarModelFacade() {
-        addNewVolvo240();
-//        VolvoFactory.getInstance().createVehicle();
-        addNewSaab95();
-        addNewScania();
+        addNewVehicle(new VolvoFactory());
+        addNewVehicle(new SaabFactory());
+        addNewVehicle(new ScaniaFactory());
     }
 
-    private void addNewScania() {
-        factory = new ScaniaFactory();
-        cars.add(factory.createVehicle());
-    }
-
-    /*
-    * TODO
-    * Implementera ett Singleton pattern för Factories, så att det bara finns en factory av varje typ. Vart skall dessa finnas??
-    * Då kan vi skapa RandomVehicleFactory som tar in en lista på Factories och väljer mellan dem.
-    *
-    * */
-
-    private void addNewSaab95() {
-        factory = new SaabFactory();
-        cars.add(factory.createVehicle());
-    }
-
-    private void addNewVolvo240() {
-
-    }
 
     private void addNewVehicle(IVehicleFactory factory){
         cars.add(factory.createVehicle());
