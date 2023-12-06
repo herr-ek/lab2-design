@@ -25,6 +25,7 @@ public class CarApp {
 
     // The frame that represents this instance View of the MVC pattern
     CarView frame;
+    CarController controller;
     CarModelFacade adapter = new CarModelFacade();
 
     //methods:

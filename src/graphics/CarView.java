@@ -83,6 +83,7 @@ public class CarView extends JFrame implements VehicleObserver {
             }
         });
 
+
         gasPanel.setLayout(new BorderLayout());
         gasPanel.add(gasLabel, BorderLayout.PAGE_START);
         gasPanel.add(gasSpinner, BorderLayout.PAGE_END);
@@ -94,10 +95,9 @@ public class CarView extends JFrame implements VehicleObserver {
         this.add(buttC.startButton);
 
         this.add(buttC.stopButton);
-
-
+*/
+/*
         // This actionListener is for the gas button only
-        // TODO: Create more for each component as necessary
         buttC.gasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

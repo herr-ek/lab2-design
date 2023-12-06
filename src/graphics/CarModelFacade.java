@@ -27,12 +27,16 @@ public class CarModelFacade {
         addNewVehicle(new ScaniaFactory());
     }
 
+    void removeLastVehicle() {
+        notifyAllObservers(UpdateEvent.CARREMOVED);
+        cars.removeLast();
+    }
 
-    private void addNewVehicle(IVehicleFactory factory){
+    void addNewVehicle(IVehicleFactory factory){
         cars.add(factory.createVehicle());
     }
 
-    private void createRandomVehicle() {
+    void createRandomVehicle() {
         Random randomGenerator = new Random();
         int randomNumber = randomGenerator.nextInt((3 - 1) + 1) + 1;
         chooseCarToGenerate(randomNumber);
@@ -43,7 +47,6 @@ public class CarModelFacade {
     // A better way to implement this would be to create another factory that takes a parameter of a list of factories and chooses between them.
     // I deduced that I did not have time for this implementation this time...
     private void chooseCarToGenerate(int randomNumber) {
-       cars.add(factory.createVehicle());
          switch (randomNumber) {
             case 1:
                 addNewVehicle(new VolvoFactory());
