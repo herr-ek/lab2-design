@@ -2,10 +2,9 @@ package graphics;
 
 import lab1.Saab95;
 import lab1.Vehicle;
-import lab1.Volvo240;
 import lab2.Factories.SaabFactory;
 import lab2.Factories.ScaniaFactory;
-import lab2.Factories.VehicleFactory;
+import lab2.Factories.IVehicleFactory;
 import lab2.Factories.VolvoFactory;
 import lab2.Scania;
 
@@ -13,14 +12,18 @@ import java.util.LinkedList;
 import java.util.Objects;
 import java.util.Random;
 
+// Should handle all functions that affect the model. A middle-man so to say.
 // TODO: Should handle all functions that affect the model. A middle-man so to say.
 public class CarModelFacade {
 
     LinkedList<Vehicle> cars = new LinkedList<>();
-    VehicleFactory factory;
+    LinkedList<VehicleObserver> observers = new LinkedList<>();
 
-    public CarModelFacade() {
+    IVehicleFactory factory;
+
+    public CarModelAdapter() {
         addNewVolvo240();
+//        VolvoFactory.getInstance().createVehicle();
         addNewSaab95();
         addNewScania();
     }
@@ -30,13 +33,27 @@ public class CarModelFacade {
         cars.add(factory.createVehicle());
     }
 
+    /*
+    * TODO
+    * Implementera ett Singleton pattern för Factories, så att det bara finns en factory av varje typ. Vart skall dessa finnas??
+    * Då kan vi skapa RandomVehicleFactory som tar in en lista på Factories och väljer mellan dem.
+    *
+    * */
+
     private void addNewSaab95() {
         factory = new SaabFactory();
         cars.add(factory.createVehicle());
     }
 
     private void addNewVolvo240() {
-        factory = new VolvoFactory();
+        addNewVehicle(new VolvoFactory());
+
+    public CarModelFacade() {
+        addNewVolvo240();
+        addNewSaab95();
+        addNewScania();
+    }
+    private void addNewVehicle(IVehicleFactory factory){
         cars.add(factory.createVehicle());
     }
 
@@ -50,7 +67,8 @@ public class CarModelFacade {
     // would need changes in this randomizing function.
     // However, I do not know how to implement this in any other way, since getting a list of all Subclasses to Vehicle seems bad.
     private void chooseCarToGenerate(int randomNumber) {
-        switch (randomNumber) {
+       cars.add(factory.createVehicle());
+         switch (randomNumber) {
             case 1:
                 addNewVolvo240();
                 break;
@@ -63,6 +81,26 @@ public class CarModelFacade {
         }
     }
 
+
+    public void addObserver(VehicleObserver observer) {
+        observers.add(observer);
+    }
+
+    public void notifyAllObservers(UpdateEvent event) {
+        for (VehicleObserver o : observers) {
+            o.actOnModelChange(event);
+        }
+    }
+
+    public void tick(){
+        boolean hasMoved = false;
+        for (Vehicle v : cars){
+            testCarInRange(v);
+            v.move();
+            if (v.getCurrentSpeed() > 0) hasMoved = true;
+        }
+        if (hasMoved) notifyAllObservers(UpdateEvent.MOTION);
+    } // This method represents the call from the timer to the model to update.
 
     void gas(int amount) {
         double gas = ((double) amount) / 100;
