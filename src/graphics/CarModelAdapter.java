@@ -38,7 +38,8 @@ public class CarModelAdapter {
 
     // This method is very not Open for extensibility, since adding more Vehicles and wanting them to be able to be randomly generated
     // would need changes in this randomizing function.
-    // A better way to implement this would be to create another
+    // A better way to implement this would be to create another factory that takes a parameter of a list of factories and chooses between them.
+    // I deduced that I did not have time for this implementation this time...
     private void chooseCarToGenerate(int randomNumber) {
        cars.add(factory.createVehicle());
          switch (randomNumber) {
