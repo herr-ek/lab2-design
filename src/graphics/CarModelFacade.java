@@ -17,10 +17,9 @@ import java.util.Random;
 public class CarModelFacade {
 
     LinkedList<Vehicle> cars = new LinkedList<>();
-
     VehicleFactory factory;
 
-    public CarModelAdapter() {
+    public CarModelFacade() {
         addNewVolvo240();
         addNewSaab95();
         addNewScania();
