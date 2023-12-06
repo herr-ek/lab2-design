@@ -46,11 +46,9 @@ public class CarModelFacade {
     }
 
     private void addNewVolvo240() {
-    public CarModelAdapter() {
-        addNewVehicle(new VolvoFactory());
-        addNewVehicle(new SaabFactory());
-        addNewVehicle(new ScaniaFactory());
+
     }
+
     private void addNewVehicle(IVehicleFactory factory){
         cars.add(factory.createVehicle());
     }
