@@ -2,10 +2,9 @@ package graphics;
 
 import lab1.Saab95;
 import lab1.Vehicle;
-import lab1.Volvo240;
 import lab2.Factories.SaabFactory;
 import lab2.Factories.ScaniaFactory;
-import lab2.Factories.VehicleFactory;
+import lab2.Factories.IVehicleFactory;
 import lab2.Factories.VolvoFactory;
 import lab2.Scania;
 
@@ -13,16 +12,17 @@ import java.util.LinkedList;
 import java.util.Objects;
 import java.util.Random;
 
-// TODO: Should handle all functions that affect the model. A middle-man so to say.
+// Should handle all functions that affect the model. A middle-man so to say.
 public class CarModelAdapter {
 
     LinkedList<Vehicle> cars = new LinkedList<>();
     LinkedList<VehicleObserver> observers = new LinkedList<>();
 
-    VehicleFactory factory;
+    IVehicleFactory factory;
 
     public CarModelAdapter() {
         addNewVolvo240();
+//        VolvoFactory.getInstance().createVehicle();
         addNewSaab95();
         addNewScania();
     }
@@ -32,13 +32,23 @@ public class CarModelAdapter {
         cars.add(factory.createVehicle());
     }
 
+    /*
+    * TODO
+    * Implementera ett Singleton pattern för Factories, så att det bara finns en factory av varje typ. Vart skall dessa finnas??
+    * Då kan vi skapa RandomVehicleFactory som tar in en lista på Factories och väljer mellan dem.
+    *
+    * */
+
     private void addNewSaab95() {
         factory = new SaabFactory();
         cars.add(factory.createVehicle());
     }
 
     private void addNewVolvo240() {
-        factory = new VolvoFactory();
+        addNewVehicle(new VolvoFactory());
+
+    }
+    private void addNewVehicle(IVehicleFactory factory){
         cars.add(factory.createVehicle());
     }
 
@@ -52,7 +62,8 @@ public class CarModelAdapter {
     // would need changes in this randomizing function.
     // However, I do not know how to implement this in any other way, since getting a list of all Subclasses to Vehicle seems bad.
     private void chooseCarToGenerate(int randomNumber) {
-        switch (randomNumber) {
+       cars.add(factory.createVehicle());
+         switch (randomNumber) {
             case 1:
                 addNewVolvo240();
                 break;
