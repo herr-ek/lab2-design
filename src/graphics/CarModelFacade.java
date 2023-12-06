@@ -7,6 +7,7 @@ import lab2.Scania;
 
 import java.util.LinkedList;
 import java.util.Objects;
+import java.util.Random;
 
 // TODO: Should handle all functions that affect the model. A middle-man so to say.
 public class CarModelFacade {
