@@ -5,7 +5,6 @@ import lab1.Movable;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.HashMap;
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -13,13 +12,10 @@ import javax.swing.*;
 // This panel represent the animated part of the view with the car images.
 
 public class DrawPanel extends JPanel{
-
-    // Just a single image, TODO: Generalize
     HashMap<Movable, BufferedImage> images = new HashMap<>();
     HashMap<Movable, Point> points = new HashMap<>();
     int yOffset = 0;
 
-    // TODO: Make this general for all cars
     void moveit(int x, int y, Movable v){
         Point newPoint = new Point(x,y);
         points.replace(v, newPoint);
@@ -31,7 +27,6 @@ public class DrawPanel extends JPanel{
         yOffset += 100;
     }
 
-    // Initializes the panel and reads the images
     public DrawPanel(int x, int y) {
         createAndColorBackground(x, y);
     }
@@ -48,7 +43,9 @@ public class DrawPanel extends JPanel{
     }
 
     public void removeMovableFromPanel(Movable movable) {
-
+        images.remove(movable);
+        points.remove(movable);
+        yOffset -= 100;
     }
 
     private void createAndColorBackground(int x, int y) {
@@ -57,10 +54,6 @@ public class DrawPanel extends JPanel{
         this.setBackground(Color.green);
     }
 
-
-    // This method is called each time the panel updates/refreshes/repaints itself
-    // TODO: Change to suit your needs.
-    
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         for (Movable Movable : images.keySet()) {

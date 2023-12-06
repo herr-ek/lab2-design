@@ -2,7 +2,8 @@ package graphics;
 
 public enum UpdateEvent {
     SPEEDCHANGE,
-    NUMOFCARSCHANGE,
+    CARADDED,
+    CARREMOVED,
     STATECHANGE,
     MOTION
 }

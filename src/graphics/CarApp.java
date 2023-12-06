@@ -25,7 +25,7 @@ public class CarApp {
 
     // The frame that represents this instance View of the MVC pattern
     CarView frame;
-    CarModelAdapter adapter = new CarModelAdapter();
+    CarModelFacade adapter = new CarModelFacade();
 
     //methods:
 
@@ -50,12 +50,7 @@ public class CarApp {
                 adapter.testCarInRange(v);
                 v.move();
                 // model.moveAllCars(); {alertAllObservers(PositionChange);}
-                int x = (int) Math.round(v.getPosition().getX());
-                int y = (int) Math.round(v.getPosition().getY());
-                // view.updateView();
-                frame.drawPanel.moveit(x, y, v);
                 // repaint() calls the paintComponent method of the panel
-                frame.drawPanel.repaint();
             }
         }
     }

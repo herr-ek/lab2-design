@@ -9,12 +9,12 @@ import java.util.LinkedList;
 import java.util.Objects;
 
 // TODO: Should handle all functions that affect the model. A middle-man so to say.
-public class CarModelAdapter {
+public class CarModelFacade {
 
     LinkedList<Vehicle> cars = new LinkedList<>();
     LinkedList<VehicleObserver> observers = new LinkedList<>();
 
-    public CarModelAdapter() {
+    public CarModelFacade() {
         cars.add(new Volvo240());
         cars.add(new Saab95());
         cars.add(new Scania());

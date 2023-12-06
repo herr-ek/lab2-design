@@ -8,8 +8,6 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Observer;
 
 /**
  * This class represents the full view of the MVC pattern of your car simulator.
@@ -25,20 +23,18 @@ public class CarView extends JFrame implements VehicleObserver {
 
 
     // The controller member
-    CarModelAdapter adapter;
+    CarModelFacade facade;
 
     ButtonController buttC = new ButtonController();
     DrawPanel drawPanel;
-
-
     JPanel gasPanel = new JPanel();
     JSpinner gasSpinner = new JSpinner();
     int gasAmount = 0;
     JLabel gasLabel = new JLabel("Amount of gas");
 
     // Constructor
-    public CarView(String framename, CarModelAdapter adapter){
-        this.adapter = adapter;
+    public CarView(String framename, CarModelFacade adapter){
+        this.facade = adapter;
         this.drawPanel = new DrawPanel(X, Y-240);
         initComponents(framename);
     }
@@ -47,15 +43,16 @@ public class CarView extends JFrame implements VehicleObserver {
     public void actOnModelChange(UpdateEvent event) {
         switch (event){
             case MOTION -> {
-                for (Vehicle v : adapter.cars) {
+                for (Vehicle v : facade.cars) {
                     int x = (int) Math.round(v.getPosition().getX());
                     int y = (int) Math.round(v.getPosition().getY());
                     drawPanel.moveit(x,y,v);
                 }
                 break;
-            }
-            case NUMOFCARSCHANGE -> {
-
+            } case CARADDED -> {
+                drawPanel.addMovableToPanel(facade.cars.getLast());
+            } case CARREMOVED -> {
+                drawPanel.removeMovableFromPanel(facade.cars.getLast());
             }
         }
         drawPanel.repaint();
@@ -103,52 +100,52 @@ public class CarView extends JFrame implements VehicleObserver {
         buttC.gasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                adapter.gas(gasAmount);
+                facade.gas(gasAmount);
             }
         });
 
         buttC.brakeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                adapter.brake(gasAmount);
+                facade.brake(gasAmount);
             }
         });
 
         buttC.stopButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                adapter.stop();
+                facade.stop();
             }
         });
         buttC.startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                adapter.start();
+                facade.start();
             }
         });
 
         buttC.turboOnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                adapter.turboOn();
+                facade.turboOn();
             }
         });
         buttC.turboOffButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                adapter.turboOff();
+                facade.turboOff();
             }
         });
         buttC.liftBedButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                adapter.liftBed();
+                facade.liftBed();
             }
         });
         buttC.lowerBedButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                adapter.lowerBed();
+                facade.lowerBed();
             }
         });
 
