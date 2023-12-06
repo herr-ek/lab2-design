@@ -12,33 +12,47 @@ import java.util.Objects;
 public class CarModelFacade {
 
     LinkedList<Vehicle> cars = new LinkedList<>();
-    LinkedList<VehicleObserver> observers = new LinkedList<>();
 
-    public CarModelFacade() {
-        cars.add(new Volvo240());
-        cars.add(new Saab95());
+    public CarModelAdapter() {
+        addNewVolvo240();
+        addNewSaab95();
+        addNewScania();
+    }
+
+    private void addNewScania() {
         cars.add(new Scania());
     }
 
-    public void addObserver(VehicleObserver observer) {
-        observers.add(observer);
+    private void addNewSaab95() {
+        cars.add(new Saab95());
     }
 
-    public void notifyAllObservers(UpdateEvent event) {
-        for (VehicleObserver o : observers) {
-            o.actOnModelChange(event);
+    private void addNewVolvo240() {
+        cars.add(new Volvo240());
+    }
+
+    // This method is very not Open for extensibility, since adding more Vehicles and wanting them to be able to be randomly generated
+    // would need changes in this randomizing function.
+    // However, I do not know how to implement this in any other way, since getting a list of all Subclasses to Vehicle seems bad.
+    private void createRandomVehicle() {
+        Random randomGenerator = new Random();
+
+        int randomNumber = randomGenerator.nextInt((3 - 1) + 1) + 1;
+
+        switch (randomNumber) {
+            case 1:
+                addNewVolvo240();
+                break;
+            case 2:
+                addNewSaab95();
+                break;
+            case 3:
+                addNewScania();
+                break;
+
         }
     }
 
-    public void tick(){
-        boolean hasMoved = false;
-        for (Vehicle v : cars){
-            testCarInRange(v);
-            v.move();
-            if (v.getCurrentSpeed() > 0) hasMoved = true;
-        }
-        if (hasMoved) notifyAllObservers(UpdateEvent.MOTION);
-    } // This method represents the call from the timer to the model to update.
 
     void gas(int amount) {
         double gas = ((double) amount) / 100;
