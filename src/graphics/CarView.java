@@ -1,5 +1,7 @@
 package graphics;
 
+import lab1.Vehicle;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -7,6 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Observer;
 
 /**
  * This class represents the full view of the MVC pattern of your car simulator.
@@ -16,7 +19,7 @@ import java.util.ArrayList;
  * TODO: Write more actionListeners and wire the rest of the buttons
  **/
 
-public class CarView extends JFrame{
+public class CarView extends JFrame implements VehicleObserver {
     private static final int X = 800;
     private static final int Y = 800;
 
@@ -36,10 +39,27 @@ public class CarView extends JFrame{
     // Constructor
     public CarView(String framename, CarModelAdapter adapter){
         this.adapter = adapter;
-        this.drawPanel = new DrawPanel(X, Y-240, new ArrayList<>(adapter.cars));
+        this.drawPanel = new DrawPanel(X, Y-240);
         initComponents(framename);
     }
 
+    @Override
+    public void actOnModelChange(UpdateEvent event) {
+        switch (event){
+            case MOTION -> {
+                for (Vehicle v : adapter.cars) {
+                    int x = (int) Math.round(v.getPosition().getX());
+                    int y = (int) Math.round(v.getPosition().getY());
+                    drawPanel.moveit(x,y,v);
+                }
+                break;
+            }
+            case NUMOFCARSCHANGE -> {
+
+            }
+        }
+        drawPanel.repaint();
+    }
 
     // Sets everything in place and fits everything
     // TODO: Take a good look and make sure you understand how these methods and components work

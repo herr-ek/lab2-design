@@ -12,12 +12,33 @@ import java.util.Objects;
 public class CarModelAdapter {
 
     LinkedList<Vehicle> cars = new LinkedList<>();
+    LinkedList<VehicleObserver> observers = new LinkedList<>();
 
     public CarModelAdapter() {
         cars.add(new Volvo240());
         cars.add(new Saab95());
         cars.add(new Scania());
     }
+
+    public void addObserver(VehicleObserver observer) {
+        observers.add(observer);
+    }
+
+    public void notifyAllObservers(UpdateEvent event) {
+        for (VehicleObserver o : observers) {
+            o.actOnModelChange(event);
+        }
+    }
+
+    public void tick(){
+        boolean hasMoved = false;
+        for (Vehicle v : cars){
+            testCarInRange(v);
+            v.move();
+            if (v.getCurrentSpeed() > 0) hasMoved = true;
+        }
+        if (hasMoved) notifyAllObservers(UpdateEvent.MOTION);
+    } // This method represents the call from the timer to the model to update.
 
     void gas(int amount) {
         double gas = ((double) amount) / 100;

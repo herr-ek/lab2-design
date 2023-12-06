@@ -7,7 +7,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.stream.Collectors;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -17,7 +16,8 @@ public class DrawPanel extends JPanel{
 
     // Just a single image, TODO: Generalize
     HashMap<Movable, BufferedImage> images = new HashMap<>();
-    HashMap<Movable, Point> points;
+    HashMap<Movable, Point> points = new HashMap<>();
+    int yOffset = 0;
 
     // TODO: Make this general for all cars
     void moveit(int x, int y, Movable v){
@@ -25,33 +25,29 @@ public class DrawPanel extends JPanel{
         points.replace(v, newPoint);
     }
 
-    HashMap<Movable, Point> createPoints(Collection<Movable> v){
-        HashMap<Movable, Point> hash = new HashMap<>();
-        int y = 0;
-        for (Movable Movable : v){
-            hash.put(Movable, new Point(0, y));
-            Movable.getPosition().setY(y);
-            y += 100;
-        }
-        return hash;
+    void createAndAddPoint(Movable m){
+        points.put(m, new Point(0, yOffset));
+        m.getPosition().setY(yOffset);
+        yOffset += 100;
     }
 
     // Initializes the panel and reads the images
-    public DrawPanel(int x, int y, Collection<Movable> movables) {
+    public DrawPanel(int x, int y) {
         createAndColorBackground(x, y);
-        this.points = createPoints(movables);
+    }
 
+    public void addMovableToPanel(Movable movable) {
+        createAndAddPoint(movable);
         // Print an error message in case file is not found with a try/catch block
         try {
-
-            for (Movable movable : movables)  {
-                images.put(movable, ImageIO.read(DrawPanel.class.getResourceAsStream("pics/"+movable.getClass().getSimpleName()+".jpg")));
-            }
-
+            images.put(movable, ImageIO.read(DrawPanel.class.getResourceAsStream("pics/"+movable.getClass().getSimpleName()+".jpg")));
         } catch (IOException ex)
         {
             ex.printStackTrace();
         }
+    }
+
+    public void removeMovableFromPanel(Movable movable) {
 
     }
 
