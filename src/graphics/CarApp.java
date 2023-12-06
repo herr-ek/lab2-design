@@ -1,19 +1,17 @@
 package graphics;
 
 import lab1.*;
-import lab2.*;
+
 
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.LinkedList;
-import java.util.Objects;
 
 /*
-* This class represents the Controller part in the MVC pattern.
-* It's responsibilities is to listen to the View and responds in a appropriate manner by
-* modifying the model state and the updating the view.
+* This class represents the executable Application of the program.
+* Its responsibilities are to initialize all the parts of the program and listen to the Controller and respond
+* in an appropriate manner by modifying the model state and the updating the view.
  */
 
 public class CarApp {
@@ -27,22 +25,19 @@ public class CarApp {
 
     // The frame that represents this instance View of the MVC pattern
     CarView frame;
-    // A list of cars, modify if needed
-    LinkedList<Vehicle> cars = new LinkedList<>();
-
     CarModelAdapter adapter = new CarModelAdapter();
 
     //methods:
 
     public static void main(String[] args) {
         // Instance of this class
-        CarApp cc = new CarApp();
+        CarApp carApp = new CarApp();
 
         // Start a new view and send a reference of self
-        cc.frame = new CarView("CarSim 1.0", cc.adapter);
+        carApp.frame = new CarView("CarSim 1.0", carApp.adapter);
 
         // Start the timer
-        cc.timer.start();
+        carApp.timer.start();
     }
 
     /* Each step the TimerListener moves all the cars in the list and tells the
@@ -50,12 +45,12 @@ public class CarApp {
     * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            for (Vehicle car : cars) {
-                adapter.testCarInRange(car);
-                car.move();
-                int x = (int) Math.round(car.getPosition().getX());
-                int y = (int) Math.round(car.getPosition().getY());
-                frame.drawPanel.moveit(x, y, car);
+            for (Vehicle v : adapter.cars) {
+                adapter.testCarInRange(v);
+                v.move();
+                int x = (int) Math.round(v.getPosition().getX());
+                int y = (int) Math.round(v.getPosition().getY());
+                frame.drawPanel.moveit(x, y, v);
                 // repaint() calls the paintComponent method of the panel
                 frame.drawPanel.repaint();
             }

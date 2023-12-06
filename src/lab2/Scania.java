@@ -9,7 +9,7 @@ public class Scania extends Truck {
     public Scania() {
         truckbed = new ScaniaTruckBed(18000);
         nrDoors = 2;
-        enginePower = 420;
+        enginePower = 80;
         color = Color.darkGray;
         modelName = "Scania P124";
         weight = 14000;
