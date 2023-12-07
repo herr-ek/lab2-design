@@ -130,8 +130,10 @@ public class CarModelFacade {
 
     void liftBed() {
         for (Vehicle vehicle : cars) {
-            if (Objects.equals(vehicle.getModelName(), "Scania"))
+            if (Objects.equals(vehicle.getModelName(), "Scania")) {
+                System.out.println("Hello world");
                 ((Scania)vehicle).raiseTruckBed();
+            }
         }
     }
     void lowerBed() {

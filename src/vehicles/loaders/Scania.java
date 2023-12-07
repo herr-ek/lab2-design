@@ -11,7 +11,7 @@ public class Scania extends Truck {
         nrDoors = 2;
         enginePower = 80;
         color = Color.darkGray;
-        modelName = "Scania P124";
+        modelName = "Scania";
         weight = 14000;
     }
 }
