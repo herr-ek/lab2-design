@@ -13,7 +13,6 @@ import java.awt.event.ActionListener;
 public class CarApp {
     // member fields:
 
-    // The delay (ms) corresponds to 20 updates a sec (hz)
     private final int delay = 16;
     // The timer is started with a listener (see below) that executes the statements
     // each step between delays.
