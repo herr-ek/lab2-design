@@ -1,6 +1,6 @@
 package graphics;
 
-import lab1.Vehicle;
+import vehicles.base.Vehicle;
 
 import javax.swing.*;
 import java.awt.*;
@@ -48,12 +48,6 @@ public class CarView extends JFrame implements VehicleObserver {
             }
             case CARADDED -> drawPanel.addMovableToPanel(facade.cars.getLast());
             case CARREMOVED -> drawPanel.removeMovableFromPanel(facade.cars.getLast());
-            case SPEEDCHANGE -> {
-                System.out.println("The new speeds are:");
-                for (Vehicle v : facade.cars) {
-                    System.out.println(v.getCurrentSpeed());
-                }
-            }
         }
         drawPanel.repaint();
     }

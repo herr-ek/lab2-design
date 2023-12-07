@@ -111,14 +111,22 @@ public class CarController {
         addCarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                model.createRandomVehicle();
+                try {
+                    model.createRandomVehicle();
+                } catch (ControllerException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 
         removeCarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                model.removeLastVehicle();
+                try {
+                    model.removeLastVehicle();
+                } catch (ControllerException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
     }

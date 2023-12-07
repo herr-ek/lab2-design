@@ -1,41 +1,49 @@
 package graphics;
 
-import lab1.Saab95;
-import lab1.Vehicle;
-import lab2.Factories.SaabFactory;
-import lab2.Factories.ScaniaFactory;
-import lab2.Factories.IVehicleFactory;
-import lab2.Factories.VolvoFactory;
-import lab2.Scania;
+import vehicles.base.Saab95;
+import vehicles.base.Vehicle;
+import vehicles.factories.SaabFactory;
+import vehicles.factories.ScaniaFactory;
+import vehicles.factories.IVehicleFactory;
+import vehicles.factories.VolvoFactory;
+import vehicles.loaders.Scania;
 
 import java.util.LinkedList;
 import java.util.Objects;
 import java.util.Random;
 
 // Should handle all functions that affect the model. A middle-man so to say.
-// TODO: Should handle all functions that affect the model. A middle-man so to say.
 public class CarModelFacade {
 
     LinkedList<Vehicle> cars = new LinkedList<>();
     LinkedList<VehicleObserver> observers = new LinkedList<>();
+    int maxCars;
 
-    public void fillWithCars() {
+    public CarModelFacade(int maxCars) {
+        this.maxCars = maxCars;
+    }
+
+    public void fillWithCars() throws ControllerException {
         addNewVehicle(new VolvoFactory());
         addNewVehicle(new SaabFactory());
         addNewVehicle(new ScaniaFactory());
     }
 
-    void removeLastVehicle() {
-        notifyAllObservers(UpdateEvent.CARREMOVED);
-        cars.removeLast();
+    void removeLastVehicle() throws ControllerException {
+        if (!cars.isEmpty()) {
+            notifyAllObservers(UpdateEvent.CARREMOVED);
+            cars.removeLast();
+        }else throw new ControllerException("No cars left!");
     }
 
-    void addNewVehicle(IVehicleFactory factory){
-        cars.add(factory.createVehicle());
-        notifyAllObservers(UpdateEvent.CARADDED);
+    void addNewVehicle(IVehicleFactory factory) throws ControllerException {
+        if (cars.size() < maxCars) {
+            cars.add(factory.createVehicle());
+            notifyAllObservers(UpdateEvent.CARADDED);
+        } else throw new ControllerException("No more room for cars!");
     }
 
-    void createRandomVehicle() {
+    void createRandomVehicle() throws ControllerException {
         Random randomGenerator = new Random();
         int randomNumber = randomGenerator.nextInt((3 - 1) + 1) + 1;
         chooseCarToGenerate(randomNumber);
@@ -45,7 +53,7 @@ public class CarModelFacade {
     // would need changes in this randomizing function.
     // A better way to implement this would be to create another factory that takes a parameter of a list of factories and chooses between them.
     // I deduced that I did not have time for this implementation this time...
-    private void chooseCarToGenerate(int randomNumber) {
+    private void chooseCarToGenerate(int randomNumber) throws ControllerException {
          switch (randomNumber) {
             case 1:
                 addNewVehicle(new VolvoFactory());
@@ -85,7 +93,6 @@ public class CarModelFacade {
         for (Vehicle car : cars) {
             car.gas(gas);
         }
-        notifyAllObservers(UpdateEvent.SPEEDCHANGE);
     }
 
     void brake(int amount) {
@@ -93,21 +100,18 @@ public class CarModelFacade {
         for (Vehicle car : cars) {
             car.brake(brake);
         }
-        notifyAllObservers(UpdateEvent.SPEEDCHANGE);
     }
 
     void stop() {
         for (Vehicle car : cars) {
             car.stopEngine();
         }
-        notifyAllObservers(UpdateEvent.SPEEDCHANGE);
     }
 
     void start() {
         for (Vehicle car : cars) {
             car.startEngine();
         }
-        notifyAllObservers(UpdateEvent.SPEEDCHANGE);
     }
 
     void turboOn() {

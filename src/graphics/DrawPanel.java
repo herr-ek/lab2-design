@@ -1,6 +1,6 @@
 package graphics;
 
-import lab1.Movable;
+import vehicles.base.Movable;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -24,7 +24,7 @@ public class DrawPanel extends JPanel{
     void createAndAddPoint(Movable m){
         points.put(m, new Point(0, yOffset));
         m.getPosition().setY(yOffset);
-        yOffset += 100;
+        yOffset += 60;
     }
 
     public DrawPanel(int x, int y) {
@@ -45,7 +45,7 @@ public class DrawPanel extends JPanel{
     public void removeMovableFromPanel(Movable movable) {
         images.remove(movable);
         points.remove(movable);
-        yOffset -= 100;
+        yOffset -= 60;
     }
 
     private void createAndColorBackground(int x, int y) {

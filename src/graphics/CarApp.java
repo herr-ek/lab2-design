@@ -1,8 +1,5 @@
 package graphics;
 
-import lab1.*;
-
-
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -26,11 +23,11 @@ public class CarApp {
     // The frame that represents this instance View of the MVC pattern
     CarView frame;
     CarController controller;
-    CarModelFacade adapter = new CarModelFacade();
+    CarModelFacade adapter = new CarModelFacade(10);
 
     //methods:
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ControllerException {
         // Instance of this class
         CarApp carApp = new CarApp();
 
