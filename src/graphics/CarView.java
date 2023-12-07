@@ -17,16 +17,10 @@ public class CarView extends JFrame implements VehicleObserver {
     private static final int X = 800;
     private static final int Y = 800;
 
-
-    // The controller member
+    // The model member
     CarModelFacade facade;
 
-    //CarController buttC = new CarController();
     DrawPanel drawPanel;
-    JPanel gasPanel = new JPanel();
-    JSpinner gasSpinner = new JSpinner();
-    int gasAmount = 0;
-    JLabel gasLabel = new JLabel("Amount of gas");
 
     // Constructor
     public CarView(String framename, CarModelFacade adapter){

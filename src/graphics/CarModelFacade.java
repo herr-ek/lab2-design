@@ -45,7 +45,8 @@ public class CarModelFacade {
 
     void createRandomVehicle() throws ControllerException {
         Random randomGenerator = new Random();
-        int randomNumber = randomGenerator.nextInt((3 - 1) + 1) + 1;
+        int randomizerUpperLimit = 3;
+        int randomNumber = randomGenerator.nextInt((randomizerUpperLimit - 1) + 1) + 1;
         chooseCarToGenerate(randomNumber);
     }
 
@@ -66,7 +67,6 @@ public class CarModelFacade {
                 break;
         }
     }
-
 
     public void addObserver(VehicleObserver observer) {
         observers.add(observer);

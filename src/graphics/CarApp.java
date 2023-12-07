@@ -7,8 +7,7 @@ import java.awt.event.ActionListener;
 
 /*
 * This class represents the executable Application of the program.
-* Its responsibilities are to initialize all the parts of the program and listen to the Controller and respond
-* in an appropriate manner by modifying the model state and the updating the view.
+* Its responsibilities are to initialize all the parts of the program and to contain the main method that continuously runs the program.
  */
 
 public class CarApp {
@@ -20,12 +19,10 @@ public class CarApp {
     // each step between delays.
     private final Timer timer = new Timer(delay, new TimerListener());
 
-    // The frame that represents this instance View of the MVC pattern
     CarView frame;
     CarController controller;
     CarModelFacade adapter = new CarModelFacade(10);
 
-    //methods:
 
     public static void main(String[] args) throws ControllerException {
         // Instance of this class
@@ -40,13 +37,9 @@ public class CarApp {
         carApp.timer.start();
     }
 
-    /* Each step the TimerListener moves all the cars in the list and tells the
-    * view to update its images. Change this method to your needs.
-    * */
     private class TimerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             adapter.tick();
         }
     }
-
 }

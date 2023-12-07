@@ -14,7 +14,8 @@ import javax.swing.*;
 public class DrawPanel extends JPanel{
     HashMap<Movable, BufferedImage> images = new HashMap<>();
     HashMap<Movable, Point> points = new HashMap<>();
-    int yOffset = 0;
+    int yOffsetCounter = 0;
+    int yOffsetBetweenCars = 60;
 
     void moveit(int x, int y, Movable v){
         Point newPoint = new Point(x,y);
@@ -22,9 +23,9 @@ public class DrawPanel extends JPanel{
     }
 
     void createAndAddPoint(Movable m){
-        points.put(m, new Point(0, yOffset));
-        m.getPosition().setY(yOffset);
-        yOffset += 60;
+        points.put(m, new Point(0, yOffsetCounter));
+        m.getPosition().setY(yOffsetCounter);
+        yOffsetCounter += yOffsetBetweenCars;
     }
 
     public DrawPanel(int x, int y) {
@@ -45,7 +46,7 @@ public class DrawPanel extends JPanel{
     public void removeMovableFromPanel(Movable movable) {
         images.remove(movable);
         points.remove(movable);
-        yOffset -= 60;
+        yOffsetCounter -= 60;
     }
 
     private void createAndColorBackground(int x, int y) {
